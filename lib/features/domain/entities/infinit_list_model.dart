@@ -7,6 +7,8 @@ ________________________1    2   3    4   _5__6___7__8___9______________________
                                                 первый ненулевой  элемент справа (индекс = 0)
 */
 
+import 'package:flutter/animation.dart';
+
 class InfinitList {
   late int position;
   int lastNN = 0;
@@ -23,39 +25,22 @@ class InfinitList {
 
   int lastNotNull() {
     for (int i = list.length - 1; i > 0; i--) {
-      if (list[i] != nullElement) return i;
+      if (list[i] != nullElement) return i + firstNN;
     }
     return -1;
   }
 
   int firstNotNull() {
     for (int i = 0; i < list.length; i++) {
-      if (list[i] != nullElement) return i;
+      if (list[i] != nullElement) return i + firstNN;
     }
     return -1;
   }
 
-  int moveLeft() {
-    position--;
-    if (position < 0) {
-      list.insert(0, nullElement);
-      position = 0;
-    }
-    return position;
-  }
-
-  int moveRight() {
-    position++;
-
-    if (position == list.length) {
-      list.add(nullElement);
-    }
-    return position;
-  }
-
   String operator [](int index) {
-    if ((-firstNN + index) < 0 || (-firstNN + index) > list.length - 1)
+    if ((-firstNN + index) < 0 || (-firstNN + index) > list.length - 1) {
       return nullElement;
+    }
     return list[-firstNN + index];
   }
 
