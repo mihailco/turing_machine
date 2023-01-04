@@ -23,40 +23,36 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-              fontFamily: "Elite",
-              //шрифты
-              primaryColor: const Color.fromRGBO(150, 123, 85, 1),
               textTheme: Theme.of(context).textTheme.apply(
-                    bodyColor: Color.fromARGB(255, 31, 28, 26),
-                    // displayColor: Colors.pinkAccent, //<-- SEE HERE
+                    fontFamily: "gtw",
+                    fontSizeDelta: 5,
+                    bodyColor: const Color.fromARGB(255, 31, 28, 26),
                   ),
-              canvasColor: Color.fromARGB(255, 190, 157, 107),
+              //шрифты
+              colorScheme: const ColorScheme(
+                  onSurface: Color.fromARGB(221, 241, 165, 0),
+                  surface: Color.fromARGB(221, 241, 165, 0),
+                  onBackground: Color.fromARGB(221, 241, 165, 0),
+                  background: Color.fromARGB(221, 241, 165, 0),
+                  onError: Color.fromARGB(255, 255, 255, 255),
+                  error: Colors.red,
+                  onSecondary: Color.fromARGB(221, 0, 0, 0),
+                  secondary: Color.fromARGB(221, 241, 165, 0),
+                  onPrimary: Color.fromARGB(221, 0, 0, 0),
+                  primary: Color.fromARGB(221, 241, 165, 0),
+                  brightness: Brightness.dark),
+              primaryColor: const Color.fromRGBO(150, 123, 85, 1),
+              canvasColor: Color.fromARGB(255, 255, 205, 129),
 
               //Theme.of(context).textTheme.headline6,
               highlightColor: Colors.black,
               textSelectionTheme: const TextSelectionThemeData(
                   cursorColor: Color.fromARGB(255, 1, 175, 166)),
-              scaffoldBackgroundColor: Color.fromARGB(255, 201, 169, 121),
-
-              //textfield
-              // inputDecorationTheme: InputDecorationTheme(
-
-              //   contentPadding: const EdgeInsets.all(3),
-              //   floatingLabelStyle: const TextStyle(
-              //       color: Color.fromARGB(255, 0, 153, 145), fontSize: 18),
-              //   focusedBorder: OutlineInputBorder(
-              //       borderSide: const BorderSide(
-              //           color: Color.fromARGB(255, 0, 153, 145), width: 2),
-              //       borderRadius: BorderRadius.circular(16)),
-              //   enabledBorder: OutlineInputBorder(
-              //       borderSide: const BorderSide(
-              //           color: Color.fromARGB(162, 0, 138, 131), width: 2),
-              //       borderRadius: BorderRadius.circular(8)),
-              // ),
+              scaffoldBackgroundColor: const Color.fromARGB(255, 201, 169, 121),
               elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) {
                 if (states.contains(MaterialState.pressed)) {
-                  return Color.fromARGB(255, 0, 153, 145);
+                  return const Color.fromARGB(255, 0, 153, 145);
                 }
                 return const Color.fromARGB(162, 0, 138, 131);
               })))),

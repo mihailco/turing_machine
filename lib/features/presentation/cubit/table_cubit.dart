@@ -5,14 +5,11 @@ import 'package:statrco/features/presentation/cubit/table_state.dart';
 import '../../domain/entities/table_model.dart';
 
 class TableCubit extends Cubit<TableState> {
-  final List<String> states ;
-  final List<String> A ;
-  final Map<Pair, CellCommand> table ;
+  final List<String> states;
+  final List<String> A;
+  final Map<Pair, CellCommand> table;
   TableCubit(this.states, this.A, this.table)
-      : super(CurrentTableState.withLists(
-            const ["", "q1"],
-            const [nullElement, "", "0"],
-            {Pair("q1", "0"): CellCommand.nil()}));
+      : super(CurrentTableState.withLists(states, A, table));
 
   void addState(String newState) {
     if (states.contains(newState)) {
@@ -42,5 +39,15 @@ class TableCubit extends Cubit<TableState> {
     }
     emit(CurrentTableState.withLists(states, tmp, table));
     A.add(newA);
+  }
+
+  void clear() {
+    states.clear();
+    states.addAll(["", "q1"]);
+    A.clear();
+    A.addAll(["", nullElement]);
+    table.clear();
+    table[Pair("q1", nullElement)] = CellCommand(states[0], A[0], "");
+    emit(CurrentTableState.withLists(states, A, table));
   }
 }

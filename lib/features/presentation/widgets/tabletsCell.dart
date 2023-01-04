@@ -19,7 +19,7 @@ class TabletsCell extends StatefulWidget {
 class _TabletsCellState extends State<TabletsCell> {
   @override
   Widget build(BuildContext context) {
-    List<String> move = ["","L", "R" ];
+    List<String> move = ["", "L", "R"];
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -39,6 +39,7 @@ class _TabletsCellState extends State<TabletsCell> {
                               ))
                       .toList(),
                   onChanged: (t) {
+                    t ??= "";
                     widget.com.rewrite = t;
                     setState(() {});
                   });
@@ -47,23 +48,21 @@ class _TabletsCellState extends State<TabletsCell> {
           },
         ),
 
-
- //выбор перемещения
+        //выбор перемещения
         DropdownButton<String>(
             iconEnabledColor: const Color.fromARGB(221, 241, 165, 0),
             value: widget.com.moveTo,
             items: move
-                .map<DropdownMenuItem<String>>(
-                    (e) => DropdownMenuItem<String>(
-                          value: e,
-                          child: Text(e.toString()),
-                        ))
+                .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
+                      value: e,
+                      child: Text(e.toString()),
+                    ))
                 .toList(),
             onChanged: (t) {
+              t ??= "";
               widget.com.moveTo = t;
               setState(() {});
             }),
-
 
         //выбор состояния
         BlocBuilder<TableCubit, TableState>(
@@ -80,6 +79,7 @@ class _TabletsCellState extends State<TabletsCell> {
                               ))
                       .toList(),
                   onChanged: (t) {
+                    t ??= "";
                     widget.com.nextState = t;
                     setState(() {});
                   });
@@ -87,9 +87,6 @@ class _TabletsCellState extends State<TabletsCell> {
             return const Text("data");
           },
         ),
-
-
-       
       ],
     );
   }

@@ -40,6 +40,7 @@ class BottomPartOfScreen extends StatelessWidget {
                     child: TuringsTable()),
                 IconButton(
                     onPressed: () {
+                      // context.read<TableCubit>().addState("кью1");
                       context.read<TableCubit>().addState("q1");
                     },
                     icon: const Icon(Icons.plus_one_outlined)),

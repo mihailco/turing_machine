@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:statrco/features/domain/entities/infinit_list_model.dart';
 import 'package:statrco/features/presentation/widgets/listCell.dart';
+import 'package:statrco/features/presentation/widgets/scroll_beh.dart';
 
 import '../constants.dart';
 
@@ -15,39 +17,24 @@ class TuringListView extends StatelessWidget {
   final controller;
   @override
   Widget build(BuildContext context) {
-    double t = oneMove * 5 - displayWidth(context) / 2 + oneMove / 2;
-
+    double t = cellWidth * 5 - displayWidth(context) / 2 + cellWidth / 2;
     return Container(
       color: const Color.fromARGB(255, 255, 240, 216),
-      height: 77,
-      child: Stack(
-        children: [
-          ListView.builder(
-              // reverse: true,
-              controller: controller,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return ListCell(
-                  index: index,
-                  list: list,
-                );
-              }),
-          Positioned(
-            top: 20,
-            child: TextButton(
-                onPressed: () {
-                  // t -= oneMove;
-                  controller.animateTo(t,
-                      curve: Curves.elasticInOut,
-                      duration: Duration(seconds: 1));
-                },
-                child: Text("ssssssss\nas")),
-          ),
-        ],
+      height: 81,
+      child: ScrollConfiguration(
+        behavior: MyCustomScrollBehavior(),
+        child: ListView.builder(
+          
+            // reverse: true,
+            controller: controller,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return ListCell(
+                index: index,
+                list: list,
+              );
+            }),
       ),
     );
-  }
-  void Move(){
-
   }
 }

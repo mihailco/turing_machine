@@ -11,15 +11,19 @@ class Pair extends Equatable {
 }
 
 class CellCommand extends Equatable {
-  late String? nextState;
-  late String? rewrite;
-  late String? moveTo;
+  late String nextState;
+  late String rewrite;
+  late String moveTo;
 
   CellCommand(this.nextState, this.rewrite, this.moveTo);
   CellCommand.nil() {
     nextState = "";
     rewrite = "";
     moveTo = "";
+  }
+
+  bool isNull() {
+    return nextState == "" && rewrite == "" && moveTo == "";
   }
 
   @override

@@ -10,18 +10,12 @@ ________________________1    2   3    4   _5__6___7__8___9______________________
 import 'package:flutter/animation.dart';
 
 class InfinitList {
-  late int position;
   int lastNN = 0;
   int firstNN = 0;
 
   late String nullElement;
   List<String> list = [];
-  InfinitList(List<String> init, this.nullElement) {
-    position = init.length;
-  }
-  String current() {
-    return list[position];
-  }
+  InfinitList(List<String> init, this.nullElement) {}
 
   int lastNotNull() {
     for (int i = list.length - 1; i > 0; i--) {
@@ -51,7 +45,7 @@ class InfinitList {
       return;
     }
     if (index < firstNN) {
-      for (int i = 0; i < index - firstNN; i++) {
+      for (int i = 0; i <  firstNN- index; i++) {
         list.insert(0, nullElement);
       }
       list[0] = (value);
@@ -69,5 +63,11 @@ class InfinitList {
     list[index - firstNN] = value;
 
     return;
+  }
+
+  void clear() {
+    list.clear();
+    lastNN = 0;
+    firstNN = 0;
   }
 }

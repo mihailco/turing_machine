@@ -13,11 +13,13 @@ final locator = GetIt.instance;
 void init() {
   //bloc
 
-  List<String> states =  ["", "q1"];
-   List<String> A = [nullElement, "", "0"];
-   final Map<Pair, CellCommand> table = {Pair("q1", "0"): CellCommand(states[1], A[0], "")};
-   List<String> tmp = [];
-     InfinitList list = InfinitList(tmp, nullElement);
+  List<String> states = ["", "q1"];
+  List<String> A = ["", nullElement];
+  final Map<Pair, CellCommand> table = {
+    Pair("q1", nullElement): CellCommand(states[0], A[0], "")
+  };
+  List<String> tmp = [];
+  InfinitList list = InfinitList(tmp, nullElement);
 
   locator.registerFactory(() => TableCubit(states, A, table));
   locator.registerFactory(() => TuringCubit(states, A, table, list));

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/domain/entities/table_model.dart';
 import 'package:statrco/features/presentation/cubit/table_cubit.dart';
 import 'package:statrco/features/presentation/cubit/table_state.dart';
+import 'package:statrco/features/presentation/widgets/settings.dart';
 import 'package:statrco/features/presentation/widgets/table.dart';
 import 'package:statrco/features/presentation/widgets/tabletsCell.dart';
 
@@ -22,39 +23,61 @@ class TuringMachinePage extends StatefulWidget {
 
 class _TuringMachinePageState extends State<TuringMachinePage> {
   InfinitList list = InfinitList(<String>[], "λ");
-  final ctrlList = ScrollController(initialScrollOffset: oneMove * 100.5);
+  final ctrlList = ScrollController(initialScrollOffset: cellWidth * 100.5);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          
           backgroundColor: Colors.black12,
           title: Row(
             children: [
               IconButton(
                   onPressed: () {
-                    context.read<TuringCubit>().execute();
+                    context.read<TuringCubit>().run();
                   },
-                  icon: const Icon(Icons.play_arrow))
+                  icon: const Icon(Icons.play_arrow)),
+              IconButton(
+                  onPressed: () {
+                    context.read<TuringCubit>().stop();
+                  },
+                  icon: const Icon(Icons.pause)),
+
+              const Spacer(),
+
+              IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(15)
+                        )
+                      ),
+                      context: context, builder: ((context) => Settings()));
+                  },
+                  icon: const Icon(Icons.settings)),
             ],
           ),
         ),
-        body: BlocBuilder<TuringCubit, TuringState>(
+        body: BlocBuilder<TuringCubit, oneStep>(
           builder: (context, state) {
-            context.read<TuringCubit>().init();
+            // context.read<TuringCubit>().init();
 
             return Column(
               children: [
-                BlocBuilder<TuringCubit, Working>(
+                BlocBuilder<TuringCubit, oneStep>(
                   builder: (context, state) {
-                    if(state.moves){
-                       ctrlList.animateTo(
-                        state.indexInList * oneMove -
-                            displayWidth(context) / 2 +
-                            oneMove / 2,
-                        curve: Curves.elasticInOut,
-                        duration: Duration(seconds: 1));
+
+                    if (ctrlList.hasClients) {
+                      print((context.read<TuringCubit>().duration*(1/2)).toInt());
+                      ctrlList.animateTo(
+                          state.indexInList * cellWidth -
+                              displayWidth(context) / 2 +
+                              cellWidth / 2,
+                          curve: Curves.elasticInOut,
+                          duration: Duration(milliseconds: (context.read<TuringCubit>().duration*(1/2)).toInt()));
                     }
-                   
+
                     // oneMove *5- displayWidth(context)/2+oneMove/2;
                     return Flexible(
                       flex: 3,
@@ -80,10 +103,7 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
                     );
                   },
                 ),
-                const Flexible(
-                  flex: 2,
-                  child: BottomPartOfScreen(),
-                ),
+                const Flexible(flex: 2, child: BottomPartOfScreen()),
               ],
             );
           },
