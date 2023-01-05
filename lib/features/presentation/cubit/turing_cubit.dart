@@ -20,12 +20,6 @@ class TuringCubit extends Cubit<oneStep> {
 
   bool running = false;
 
-  // void init() {
-  //   curState = states[1];
-  //   curPos = list.lastNN;
-  //   table[Pair(curState, list[curPos])] = CellCommand(states[1], A[0], "");
-  // }
-
   late String curState = states[1];
   late int curPos = 0;
 
@@ -34,6 +28,7 @@ class TuringCubit extends Cubit<oneStep> {
   }
 
   void run() async {
+    if (running) return;
     running = true;
     while (true) {
       if (!running || table[Pair(curState, list[curPos])]!.isNull()) {

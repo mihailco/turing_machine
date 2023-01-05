@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/domain/entities/table_model.dart';
 import 'package:statrco/features/presentation/cubit/table_cubit.dart';
 import 'package:statrco/features/presentation/cubit/table_state.dart';
+import 'package:statrco/features/presentation/widgets/gear.dart';
 import 'package:statrco/features/presentation/widgets/settings.dart';
 import 'package:statrco/features/presentation/widgets/table.dart';
 import 'package:statrco/features/presentation/widgets/tabletsCell.dart';
@@ -13,6 +14,7 @@ import '../cubit/turing_cubit.dart';
 import '../cubit/turing_state.dart';
 import '../widgets/TuringListView.dart';
 import '../widgets/bottom_part_of_screen.dart';
+import '../widgets/top_of_the_screen.dart';
 
 class TuringMachinePage extends StatefulWidget {
   TuringMachinePage({Key? key}) : super(key: key);
@@ -59,49 +61,21 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
             ],
           ),
         ),
+        
         body: BlocBuilder<TuringCubit, oneStep>(
           builder: (context, state) {
             // context.read<TuringCubit>().init();
 
             return Column(
               children: [
-                BlocBuilder<TuringCubit, oneStep>(
-                  builder: (context, state) {
-
-                    if (ctrlList.hasClients) {
-                      print((context.read<TuringCubit>().duration*(1/2)).toInt());
-                      ctrlList.animateTo(
-                          state.indexInList * cellWidth -
-                              displayWidth(context) / 2 +
-                              cellWidth / 2,
-                          curve: Curves.elasticInOut,
-                          duration: Duration(milliseconds: (context.read<TuringCubit>().duration*(1/2)).toInt()));
-                    }
-
-                    // oneMove *5- displayWidth(context)/2+oneMove/2;
-                    return Flexible(
-                      flex: 3,
-                      // child: Container(),
-                      child: Center(
-                          child: Column(
-                        children: [
-                          TuringListView(
-                            list: state.list,
-                            controller: ctrlList,
-                          ),
-                          Center(
-                            child: Container(
-                                height: 55,
-                                width: 77,
-                                child: Image.asset(
-                                  "assets/photos/arrow.png",
-                                  fit: BoxFit.contain,
-                                )),
-                          )
-                        ],
-                      )),
-                    );
-                  },
+                Flexible(
+                  flex: 3,
+                  child: Stack(
+                    children: [
+                      Gear(radius: 15, clockwise: true),
+                      TopOfTheScreen(ctrlList: ctrlList),
+                    ],
+                  ),
                 ),
                 const Flexible(flex: 2, child: BottomPartOfScreen()),
               ],
