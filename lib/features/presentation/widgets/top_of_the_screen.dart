@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/presentation/constants.dart';
 import 'package:statrco/features/presentation/cubit/turing_cubit.dart';
-import 'package:statrco/features/presentation/widgets/TuringListView.dart';
+import 'package:statrco/features/presentation/widgets/turing_list_view.dart';
 
 import '../cubit/turing_state.dart';
 
@@ -22,7 +22,7 @@ class TopOfTheScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        BlocBuilder<TuringCubit, oneStep>(
+        BlocBuilder<TuringCubit, OneStep>(
           builder: (context, state) {
                 
             if (ctrlList.hasClients) {

@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 
-import 'package:http/http.dart' as http;
 
 import 'features/domain/entities/infinit_list_model.dart';
 import 'features/domain/entities/table_model.dart';
@@ -16,7 +15,7 @@ void init() {
   List<String> states = ["", "q1"];
   List<String> A = ["", nullElement];
   final Map<Pair, CellCommand> table = {
-    Pair("q1", nullElement): CellCommand(states[0], A[0], "")
+    const Pair("q1", nullElement): CellCommand(states[0], A[0], "")
   };
   List<String> tmp = [];
   InfinitList list = InfinitList(tmp, nullElement);

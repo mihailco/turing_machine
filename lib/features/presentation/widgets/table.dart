@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/domain/entities/table_model.dart';
-import 'package:statrco/features/presentation/constants.dart';
 import 'package:statrco/features/presentation/cubit/table_cubit.dart';
 import 'package:statrco/features/presentation/cubit/table_state.dart';
 import 'package:statrco/features/presentation/cubit/turing_cubit.dart';
 import 'package:statrco/features/presentation/cubit/turing_state.dart';
-import 'package:statrco/features/presentation/widgets/tabletsCell.dart';
+import 'package:statrco/features/presentation/widgets/tablets_cell.dart';
 
 class TuringsTable extends StatefulWidget {
   const TuringsTable({
@@ -23,7 +22,7 @@ class _TuringsTableState extends State<TuringsTable> {
     return BlocBuilder<TableCubit, TableState>(
       builder: (context, state) {
         if (state is CurrentTableState) {
-          return BlocBuilder<TuringCubit, oneStep>(
+          return BlocBuilder<TuringCubit, OneStep>(
             builder: (contexTU, stateTU) {
               return DataTable(
                 columnSpacing: 10,
@@ -45,7 +44,7 @@ class _TuringsTableState extends State<TuringsTable> {
                                       ? Text(a)
                                       : Container(
                                           color: (stateTU.currentState == st&&stateTU.list[stateTU.indexInList]==a)
-                                              ? Color.fromARGB(24, 255, 255, 255)
+                                              ? const Color.fromARGB(24, 255, 255, 255)
                                               : Colors.transparent,
                                           child: TabletsCell(
                                               com: state.table[Pair(st, a)]!),

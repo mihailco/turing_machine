@@ -35,7 +35,7 @@ class _SettingsState extends State<Settings> {
             },
           ),
           Container(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             margin: const EdgeInsets.all(15),
             height: 1,
           ),

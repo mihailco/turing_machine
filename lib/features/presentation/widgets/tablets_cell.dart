@@ -5,7 +5,7 @@ import 'package:statrco/features/presentation/cubit/table_cubit.dart';
 import 'package:statrco/features/presentation/cubit/table_state.dart';
 
 class TabletsCell extends StatefulWidget {
-  TabletsCell({
+  const TabletsCell({
     Key? key,
     required this.com,
   }) : super(key: key);

@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:statrco/features/domain/entities/table_model.dart';
-import 'package:statrco/features/presentation/cubit/table_cubit.dart';
-import 'package:statrco/features/presentation/cubit/table_state.dart';
 import 'package:statrco/features/presentation/widgets/gear.dart';
 import 'package:statrco/features/presentation/widgets/settings.dart';
-import 'package:statrco/features/presentation/widgets/table.dart';
-import 'package:statrco/features/presentation/widgets/tabletsCell.dart';
 
 import '../../domain/entities/infinit_list_model.dart';
 import '../constants.dart';
 import '../cubit/turing_cubit.dart';
 import '../cubit/turing_state.dart';
-import '../widgets/TuringListView.dart';
+import '../widgets/background_gears.dart';
 import '../widgets/bottom_part_of_screen.dart';
 import '../widgets/top_of_the_screen.dart';
 
 class TuringMachinePage extends StatefulWidget {
-  TuringMachinePage({Key? key}) : super(key: key);
+  const TuringMachinePage({Key? key}) : super(key: key);
 
   @override
   State<TuringMachinePage> createState() => _TuringMachinePageState();
@@ -55,32 +50,39 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
                           top: Radius.circular(15)
                         )
                       ),
-                      context: context, builder: ((context) => Settings()));
+                      context: context, builder: ((context) => const Settings()));
                   },
                   icon: const Icon(Icons.settings)),
             ],
           ),
         ),
         
-        body: BlocBuilder<TuringCubit, oneStep>(
+        body: BlocBuilder<TuringCubit, OneStep>(
           builder: (context, state) {
             // context.read<TuringCubit>().init();
 
-            return Column(
-              children: [
-                Flexible(
-                  flex: 3,
-                  child: Stack(
-                    children: [
-                      Gear(radius: 15, clockwise: true),
-                      TopOfTheScreen(ctrlList: ctrlList),
-                    ],
+            return Container(
+              color: Color.fromRGBO(207, 178, 135, 1),
+              // decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/photos/background_top.png")) ),
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: Stack(                      
+                      children: [
+                        BackgroundGears(),
+                        TopOfTheScreen(ctrlList: ctrlList),
+                      ],
+                      
+                    ),
                   ),
-                ),
-                const Flexible(flex: 2, child: BottomPartOfScreen()),
-              ],
+                  const Flexible(flex: 2, child: BottomPartOfScreen()),
+                ],
+              ),
             );
           },
         ));
   }
 }
+
+

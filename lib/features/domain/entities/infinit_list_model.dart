@@ -7,7 +7,6 @@ ________________________1    2   3    4   _5__6___7__8___9______________________
                                                 первый ненулевой  элемент справа (индекс = 0)
 */
 
-import 'package:flutter/animation.dart';
 
 class InfinitList {
   int lastNN = 0;
@@ -15,7 +14,7 @@ class InfinitList {
 
   late String nullElement;
   List<String> list = [];
-  InfinitList(List<String> init, this.nullElement) {}
+  InfinitList(List<String> init, this.nullElement);
 
   int lastNotNull() {
     for (int i = list.length - 1; i > 0; i--) {

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                   primary: Color.fromARGB(221, 241, 165, 0),
                   brightness: Brightness.dark),
               primaryColor: const Color.fromRGBO(150, 123, 85, 1),
-              canvasColor: Color.fromARGB(255, 255, 205, 129),
+              canvasColor: const Color.fromARGB(255, 255, 205, 129),
 
               //Theme.of(context).textTheme.headline6,
               highlightColor: Colors.black,
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                 }
                 return const Color.fromARGB(162, 0, 138, 131);
               })))),
-          home: TuringMachinePage(),
+          home: const TuringMachinePage(),
           initialRoute: '/',
           // routes: {
           //   '/auth': (context) => const AuthPage(),

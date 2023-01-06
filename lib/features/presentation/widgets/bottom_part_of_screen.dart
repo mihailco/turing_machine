@@ -37,7 +37,7 @@ class BottomPartOfScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       color: const Color.fromARGB(255, 154, 125, 83),
                     ),
-                    child: TuringsTable()),
+                    child: const TuringsTable()),
                 IconButton(
                     onPressed: () {
                       // context.read<TableCubit>().addState("кью1");

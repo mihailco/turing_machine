@@ -4,12 +4,13 @@ class Pair extends Equatable {
   final String state;
   final String A;
 
-  Pair(this.state, this.A);
+  const Pair(this.state, this.A);
 
   @override
   List<Object?> get props => [state, A];
 }
 
+// ignore: must_be_immutable
 class CellCommand extends Equatable {
   late String nextState;
   late String rewrite;

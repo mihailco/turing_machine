@@ -47,7 +47,7 @@ class TableCubit extends Cubit<TableState> {
     A.clear();
     A.addAll(["", nullElement]);
     table.clear();
-    table[Pair("q1", nullElement)] = CellCommand(states[0], A[0], "");
+    table[const Pair("q1", nullElement)] = CellCommand(states[0], A[0], "");
     emit(CurrentTableState.withLists(states, A, table));
   }
 }
