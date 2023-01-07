@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:statrco/features/presentation/widgets/gear.dart';
 import 'package:statrco/features/presentation/widgets/settings.dart';
 
 import '../../domain/entities/infinit_list_model.dart';
@@ -25,7 +24,6 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          
           backgroundColor: Colors.black12,
           title: Row(
             children: [
@@ -39,44 +37,44 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
                     context.read<TuringCubit>().stop();
                   },
                   icon: const Icon(Icons.pause)),
-
               const Spacer(),
-
               IconButton(
                   onPressed: () {
                     showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(15)
-                        )
-                      ),
-                      context: context, builder: ((context) => const Settings()));
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(15))),
+                        context: context,
+                        builder: ((context) => const Settings()));
                   },
                   icon: const Icon(Icons.settings)),
             ],
           ),
         ),
-        
         body: BlocBuilder<TuringCubit, OneStep>(
           builder: (context, state) {
             // context.read<TuringCubit>().init();
 
             return Container(
-              color: Color.fromRGBO(207, 178, 135, 1),
               // decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/photos/background_top.png")) ),
-              child: Column(
+              child: Stack(
                 children: [
-                  Flexible(
-                    flex: 3,
-                    child: Stack(                      
-                      children: [
-                        BackgroundGears(),
-                        TopOfTheScreen(ctrlList: ctrlList),
-                      ],
-                      
-                    ),
+
+                  Column(
+                    children: [
+                      Flexible(
+                        flex: 3,
+                        child: Stack(
+                          
+                          children: [
+                            const BackgroundGears(),
+                            TopOfTheScreen(ctrlList: ctrlList),
+                          ],
+                        ),
+                      ),
+                       Flexible(flex: 2, child: BottomPartOfScreen()),
+                    ],
                   ),
-                  const Flexible(flex: 2, child: BottomPartOfScreen()),
                 ],
               ),
             );
@@ -84,5 +82,3 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
         ));
   }
 }
-
-

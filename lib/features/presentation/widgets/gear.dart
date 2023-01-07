@@ -24,7 +24,6 @@ class SmallGear extends TypeGear {
 
   @override
   double getScale() => 1.2;
-
 }
 
 class BigGear extends TypeGear {
@@ -42,12 +41,18 @@ class Gear extends StatelessWidget {
       required this.typeGear,
       this.clockwise = true,
       this.connectedWith = const BigGear(),
-      this.initialtTurn = 0});
+      this.initialtTurn = 0,
+      this.darker = 1,
+      this.scale = 1,
+      this.speed = 1});
   final TypeGear typeGear;
   final TypeGear connectedWith;
   final bool clockwise;
   final double initialtTurn;
+  final double darker;
+  final int scale;
   int prevIndex = 0;
+  final double speed;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TuringCubit, OneStep>(
@@ -59,13 +64,23 @@ class Gear extends StatelessWidget {
             turns: state.indexInList.toDouble() *
                     (clockwise ? -1 : 1) *
                     (connectedWith.getDiameter() / typeGear.getDiameter()) /
-                    18 +
+                    18 *
+                    speed +
                 initialtTurn,
-            child: Image.asset(
-              typeGear.getAsset(),
-              height: typeGear.getDiameter()*typeGear.getScale(),
-              width: typeGear.getDiameter()*typeGear.getScale(),
-              // fit: BoxFit.none,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Color.fromARGB(255, (255 * darker).toInt(),
+                    (255 * darker).toInt(), (255 * darker).toInt()),
+                BlendMode.modulate,
+              ),
+              child: Image.asset(
+                typeGear.getAsset(),
+
+                // color: const Color.fromARGB(255, 196, 168, 127),
+                height: typeGear.getDiameter() * typeGear.getScale() * scale,
+                width: typeGear.getDiameter() * typeGear.getScale() * scale,
+                // fit: BoxFit.none,
+              ),
             ));
       },
     );

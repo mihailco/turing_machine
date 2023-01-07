@@ -28,6 +28,12 @@ class TuringCubit extends Cubit<OneStep> {
   void run() async {
     if (running) return;
     running = true;
+    if (curPos == 0) {
+      curPos = list.lastNN;
+    }
+    if (curPos == 0) {
+      curPos = 100;
+    }
     while (true) {
       if (!running || table[Pair(curState, list[curPos])]!.isNull()) {
         return;
@@ -48,9 +54,7 @@ class TuringCubit extends Cubit<OneStep> {
   }
 
   void execute() {
-    if (curPos == 0) {
-      curPos = list.lastNN;
-    }
+    
     var cmd = table[Pair(curState, list[curPos])]!;
     if (cmd.rewrite != "") list[curPos] = cmd.rewrite;
     if (cmd.nextState != "") curState = cmd.nextState;
