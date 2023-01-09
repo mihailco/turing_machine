@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                   ),
               //шрифты
               colorScheme: const ColorScheme(
-                  onSurface: Color.fromARGB(221, 241, 165, 0),
+                  onSurface: Color.fromARGB(221, 216, 181, 107),
                   surface: Color.fromARGB(221, 241, 165, 0),
                   onBackground: Color.fromARGB(221, 241, 165, 0),
                   background: Color.fromARGB(221, 241, 165, 0),
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               //Theme.of(context).textTheme.headline6,
               highlightColor: Colors.black,
               textSelectionTheme: const TextSelectionThemeData(
-                  cursorColor: Color.fromARGB(255, 1, 175, 166)),
+                  cursorColor: Color.fromARGB(255, 0, 0, 0)),
               scaffoldBackgroundColor: const Color.fromARGB(255, 201, 169, 121),
               elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith((states) {

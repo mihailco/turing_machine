@@ -30,7 +30,7 @@ class _TuringsTableState extends State<TuringsTable> {
                 border: const TableBorder(
                     verticalInside:
                         BorderSide(color: Color.fromRGBO(73, 50, 37, 0.102))),
-                columns: state.states
+                columns: state.states.where((element) =>  element!="q0")
                     .map<DataColumn>((e) => DataColumn(
                         label: Expanded(child: Center(child: Text(e)))))
                     .toList(),
@@ -38,7 +38,7 @@ class _TuringsTableState extends State<TuringsTable> {
                 rows: state.A
                     .where((element) => element != "")
                     .map<DataRow>((a) => DataRow(
-                        cells: state.states
+                        cells: state.states.where((element) =>  element!="q0")
                             .map<DataCell>((st) => DataCell(
                                   st == ""
                                       ? Text(a)

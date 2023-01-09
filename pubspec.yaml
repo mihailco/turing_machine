@@ -55,6 +55,7 @@ flutter:
 
   assets:
     - assets/photos/tablo.png
+    - assets/photos/machine.png
     - assets/photos/gearB.png
     - assets/photos/gearS.png
     - assets/photos/background_top.png

@@ -43,7 +43,7 @@ class TableCubit extends Cubit<TableState> {
 
   void clear() {
     states.clear();
-    states.addAll(["", "q1"]);
+    states.addAll(["", "q1", "q0"]);
     A.clear();
     A.addAll(["", nullElement]);
     table.clear();

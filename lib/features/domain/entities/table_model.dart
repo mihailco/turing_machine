@@ -24,7 +24,7 @@ class CellCommand extends Equatable {
   }
 
   bool isNull() {
-    return nextState == "" && rewrite == "" && moveTo == "";
+    return nextState == ""  && moveTo == "";
   }
 
   @override

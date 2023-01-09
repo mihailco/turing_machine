@@ -45,29 +45,33 @@ class TopOfTheScreen extends StatelessWidget {
                 // fit: StackFit.expand,
                 alignment: AlignmentDirectional.center,
                 children: [
+                  // Positioned(
+                  //   top: 77,
+                  //   child: SizedBox(
+                  //       height: 55,
+                  //       width: 77,
+                  //       child: Image.asset(
+                  //         "assets/photos/arrow.png",
+                  //         fit: BoxFit.contain,
+                  //       )),
+                  // ),
                   Positioned(
-                    top: 77,
+                    top: 82,
                     child: SizedBox(
-                        height: 55,
-                        width: 77,
+                        height: 300,
+                        width: 300,
                         child: Image.asset(
-                          "assets/photos/arrow.png",
+                          "assets/photos/machine.png",
                           fit: BoxFit.contain,
                         )),
                   ),
                   Positioned(
-                    top: 111,
-                    child: SizedBox(
-                        height: 188,
-                        width: 188,
-                        child: Image.asset(
-                          "assets/photos/tablo.png",
-                          fit: BoxFit.contain,
-                        )),
-                  ),
-                  Positioned(
-                    top: 129,
-                    child: Text(state.currentState))
+                    top: 140,
+                    child: Text(state.currentState
+                    ,
+                    style: const TextStyle(fontSize: 25),
+                    
+                    ))
                 ],
               ),
             ],

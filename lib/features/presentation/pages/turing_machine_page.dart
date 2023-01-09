@@ -20,6 +20,7 @@ class TuringMachinePage extends StatefulWidget {
 class _TuringMachinePageState extends State<TuringMachinePage> {
   InfinitList list = InfinitList(<String>[], "λ");
   final ctrlList = ScrollController(initialScrollOffset: cellWidth * 100.5);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +28,34 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
           backgroundColor: Colors.black12,
           title: Row(
             children: [
-              IconButton(
-                  onPressed: () {
-                    context.read<TuringCubit>().run();
-                  },
-                  icon: const Icon(Icons.play_arrow)),
-              IconButton(
-                  onPressed: () {
-                    context.read<TuringCubit>().stop();
-                  },
-                  icon: const Icon(Icons.pause)),
+              BlocBuilder<TuringCubit, OneStep>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (!state.running)
+                        GestureDetector(
+                          onDoubleTap: (){
+                                context.read<TuringCubit>().run(emitAllSteps: false);
+
+                          },
+                          child: IconButton(
+                              onPressed: () {
+                                context.read<TuringCubit>().run();
+                              },
+                              icon: const Icon(Icons.play_arrow)),
+                        )
+                      else
+                        IconButton(
+                            onPressed: () {
+                              context.read<TuringCubit>().stop();
+                            },
+                            icon: const Icon(Icons.pause)),
+                      Text(state.stepNumber.toString())
+                    ],
+                  );
+                },
+              ),
               const Spacer(),
               IconButton(
                   onPressed: () {
@@ -59,20 +78,20 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
               // decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/photos/background_top.png")) ),
               child: Stack(
                 children: [
-
                   Column(
                     children: [
                       Flexible(
                         flex: 3,
                         child: Stack(
-                          
                           children: [
                             const BackgroundGears(),
                             TopOfTheScreen(ctrlList: ctrlList),
                           ],
                         ),
                       ),
-                       Flexible(flex: 2, child: BottomPartOfScreen()),
+                      Container(
+                          child:
+                              Flexible(flex: 2, child: BottomPartOfScreen())),
                     ],
                   ),
                 ],

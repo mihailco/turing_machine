@@ -12,7 +12,7 @@ final locator = GetIt.instance;
 void init() {
   //bloc
 
-  List<String> states = ["", "q1"];
+  List<String> states = ["", "q0","q1"];
   List<String> A = ["", nullElement];
   final Map<Pair, CellCommand> table = {
     const Pair("q1", nullElement): CellCommand(states[0], A[0], "")

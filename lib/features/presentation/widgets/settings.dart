@@ -13,6 +13,8 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   late double value = context.read<TuringCubit>().duration / 1000;
+  late TextEditingController tfStepsController = TextEditingController(
+      text: context.read<TuringCubit>().maxSteps.toString());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,6 +35,33 @@ class _SettingsState extends State<Settings> {
               context.read<TuringCubit>().setDuration((v * 1000).toInt());
               setState(() {});
             },
+          ),
+          Row(
+            children: [
+              const Text(
+                "Количество шагов:  ",
+              ),
+              Container(
+                color: Colors.black12,
+                width: 100,
+                child: TextField(
+                  onSubmitted: (value) {
+                    tfStepsController.text = tfStepsController.text
+                        .replaceAll(RegExp("[^0-9]"), "");
+                         context.read<TuringCubit>().setMaxSteps( int.parse( tfStepsController.text));
+                  },
+                  expands: false,
+                  controller: tfStepsController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration.collapsed(
+                    focusColor: Colors.black12,
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 66, 39, 39)),
+                    hintText: 'Введите здесь',
+                  ),
+                ),
+              ),
+            ],
           ),
           Container(
             color: const Color.fromARGB(255, 255, 255, 255),

@@ -7,7 +7,7 @@ import 'package:statrco/features/presentation/cubit/turing_state.dart';
 
 class TypeGear {
   const TypeGear();
-  double getDiameter() => 18;
+  double getSize() => 18;
   double getScale() => 1;
 
   String getAsset() => "assets/photos/gearB.png";
@@ -17,7 +17,7 @@ class SmallGear extends TypeGear {
   const SmallGear();
 
   @override
-  double getDiameter() => 100;
+  double getSize() => 100;
 
   @override
   String getAsset() => "assets/photos/gearS.png";
@@ -29,7 +29,7 @@ class SmallGear extends TypeGear {
 class BigGear extends TypeGear {
   const BigGear();
   @override
-  double getDiameter() => 300;
+  double getSize() => 300;
 
   @override
   String getAsset() => "assets/photos/gearB.png";
@@ -50,7 +50,7 @@ class Gear extends StatelessWidget {
   final bool clockwise;
   final double initialtTurn;
   final double darker;
-  final int scale;
+  final double scale;
   int prevIndex = 0;
   final double speed;
   @override
@@ -63,7 +63,7 @@ class Gear extends StatelessWidget {
                 milliseconds: context.read<TuringCubit>().duration * 3 ~/ 4),
             turns: state.indexInList.toDouble() *
                     (clockwise ? -1 : 1) *
-                    (connectedWith.getDiameter() / typeGear.getDiameter()) /
+                    (connectedWith.getSize() / typeGear.getSize()) /
                     18 *
                     speed +
                 initialtTurn,
@@ -77,8 +77,8 @@ class Gear extends StatelessWidget {
                 typeGear.getAsset(),
 
                 // color: const Color.fromARGB(255, 196, 168, 127),
-                height: typeGear.getDiameter() * typeGear.getScale() * scale,
-                width: typeGear.getDiameter() * typeGear.getScale() * scale,
+                height: typeGear.getSize() * typeGear.getScale() * scale,
+                width: typeGear.getSize() * typeGear.getScale() * scale,
                 // fit: BoxFit.none,
               ),
             ));
