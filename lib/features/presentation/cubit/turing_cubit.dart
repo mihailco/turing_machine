@@ -15,7 +15,7 @@ class TuringCubit extends Cubit<OneStep> {
       : super(OneStep(
             table.states[2], 100, InfinitList([], nullElement), false, 0));
 
-  ///задержка в милисекундах между шагами
+  ///delay in milliseconds between steps
   late Duration time;
 
   final TuringHistoryCubit turingHistory;
@@ -35,8 +35,7 @@ class TuringCubit extends Cubit<OneStep> {
     duration = milliseconds;
   }
 
-  ///выполняет поседовательность команд до тех пор, пока не сработает
-  ///одно из условий остановки
+  ///performs a sequence of commands until one of the stop conditions is triggered
   void run({bool emitAllSteps = true}) async {
     turingHistory.add(StartAction());
     int step = 1;
@@ -90,7 +89,7 @@ class TuringCubit extends Cubit<OneStep> {
     emit(OneStep(curState, curPos, list, running, 0));
   }
 
-  ///делает один шаг и отправяет новое состояние
+  ///takes one step and sends a new state
   void execute({int step = 0, bool emitThis = true}) {
     var cmd = table.table[Pair(curState, list[curPos])]!;
     if (cmd.rewrite != "") {
@@ -116,7 +115,7 @@ class TuringCubit extends Cubit<OneStep> {
     if (!emitThis) return;
     emit(OneStep(curState, curPos, list, running, step));
   }
-
+///puts the maximum number of steps to a stop
   void setMaxSteps(int n) {
     maxSteps = n;
   }

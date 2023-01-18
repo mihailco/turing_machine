@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:statrco/features/presentation/widgets/gear.dart';
 
+///They are now used at the top of the screen
 class BackgroundGears extends StatelessWidget {
   const BackgroundGears({super.key});
   final small = const SmallGear();

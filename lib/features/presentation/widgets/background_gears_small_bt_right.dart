@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:statrco/features/presentation/widgets/gear.dart';
 
+///gears are located at the bottom right and bottom left. 
+///They are now used at the bottom of the screen
 class BackgroundGears2 extends StatelessWidget {
   const BackgroundGears2({super.key});
   final small = const SmallGear();

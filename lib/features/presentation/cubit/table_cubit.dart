@@ -7,6 +7,7 @@ import 'package:statrco/features/presentation/cubit/table_state.dart';
 
 import '../../domain/entities/table_model.dart';
 
+///stores the set of internal states, the external alphabet and the table
 class TableCubit extends Cubit<TableState> {
   final List<String> states = ["", "q0", "q1"];
   final List<String> A = ["", nullElement];
@@ -19,6 +20,7 @@ class TableCubit extends Cubit<TableState> {
             const ["", nullElement],
             {const Pair("q1", nullElement): CellCommand("", "", "")}));
 
+//adds a state to the table 
   void addState(String newState) {
     if (states.contains(newState)) {
       int i = 0;
@@ -34,11 +36,12 @@ class TableCubit extends Cubit<TableState> {
     for (var element in A) {
       table[Pair(newState, element)] = CellCommand.nil();
     }
-    // emit(NullTableState());
+    /// emit(NullTableState());
     emit(CurrentTableState.withLists(tmp, A, table));
     states.add(newState);
   }
 
+///adds a unique character to the external alphabet
   void addA(String newA) {
     if (A.contains(newA)) {
       int i = 0;

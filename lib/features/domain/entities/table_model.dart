@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-
+///is used to bind rows and columns of the table
 class Pair extends Equatable {
   final String state;
   final String A;
@@ -10,6 +10,7 @@ class Pair extends Equatable {
   List<Object?> get props => [state, A];
 }
 
+///is stored in a cell of the table
 // ignore: must_be_immutable
 class CellCommand extends Equatable {
   late String nextState;

@@ -10,6 +10,7 @@ class HistoryTuringState {
 
 class Actions {}
 
+///the Turing machine is up and running
 class StartAction extends Actions {
   late DateTime time;
 
@@ -18,6 +19,7 @@ class StartAction extends Actions {
   }
 }
 
+///the turing machine has stopped
 class StopAction extends Actions {
   late DateTime time;
 
@@ -26,17 +28,20 @@ class StopAction extends Actions {
   }
 }
 
+///overwrote the cell
 class OverwriteAction extends Actions {
   final String from;
   final String to;
   OverwriteAction(this.from, this.to);
 }
 
+///the head of the machine has moved
 class MoveAction extends Actions {
   final String to;
   MoveAction(this.to);
 }
 
+///the state has changed
 class ChangeStateAction extends Actions {
   final String to;
   final String from;

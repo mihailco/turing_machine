@@ -61,12 +61,14 @@ class Gear extends StatelessWidget {
             curve: Curves.elasticInOut,
             duration: Duration(
                 milliseconds: context.read<TuringCubit>().duration * 3 ~/ 4),
+                //indicates the number of turns and direction 
             turns: state.indexInList.toDouble() *
                     (clockwise ? -1 : 1) *
                     (connectedWith.getSize() / typeGear.getSize()) /
                     18 *
                     speed +
                 initialtTurn,
+
             child: ColorFiltered(
               colorFilter: ColorFilter.mode(
                 Color.fromARGB(255, (255 * darker).toInt(),
@@ -75,11 +77,8 @@ class Gear extends StatelessWidget {
               ),
               child: Image.asset(
                 typeGear.getAsset(),
-
-                // color: const Color.fromARGB(255, 196, 168, 127),
                 height: typeGear.getSize() * typeGear.getScale() * scale,
                 width: typeGear.getSize() * typeGear.getScale() * scale,
-                // fit: BoxFit.none,
               ),
             ));
       },
