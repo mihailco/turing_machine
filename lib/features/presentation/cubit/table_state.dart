@@ -16,7 +16,7 @@ class CurrentTableState extends TableState {
   CurrentTableState.withLists(this.states, this.A, this.table);
 
   @override
-  List<Object?> get props => [A.toString(), states.toString()];
+  List<Object?> get props => [table.toString(), states.toString(), A.toString()];
 }
 
 class NullTableState extends TableState {}

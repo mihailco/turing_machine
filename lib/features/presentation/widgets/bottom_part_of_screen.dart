@@ -42,9 +42,9 @@ final TextEditingController controller =TextEditingController(text: "0");
                           border: Border.all(
                               width: 3, color: const Color.fromRGBO(82, 59, 43, 1)),
                           borderRadius: BorderRadius.circular(12),
-                          color: Color.fromARGB(255, 185, 151, 103),
+                          color: const Color.fromARGB(255, 185, 151, 103),
                         ),
-                        child: const TuringsTable()),
+                        child:  const TuringsTable()),
                     IconButton(
                         onPressed: () {
                           // context.read<TableCubit>().addState("кью1");
@@ -55,18 +55,24 @@ final TextEditingController controller =TextEditingController(text: "0");
                 ),
           
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                        onPressed: () {
-                          context.read<TableCubit>().addA(controller.text);
-                        },
-                        icon: const Icon(Icons.plus_one_outlined)),
-                        SizedBox(width: 155,
-                          child: TextField(controller: controller,
+                    const SizedBox(width: 22,),
+                    SizedBox(
+
+                      width: 45,
+                          child: TextField(
+                            maxLength: 2,
+                            controller: controller,
                           onEditingComplete: () {
                              context.read<TableCubit>().addA(controller.text);
                           },
                           )),
+                        IconButton(
+                        onPressed: () {
+                          context.read<TableCubit>().addA(controller.text);
+                        },
+                        icon: const Icon(Icons.plus_one_outlined)),
                   ],
                 ),
               ],

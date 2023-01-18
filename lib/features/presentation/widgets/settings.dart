@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/presentation/cubit/table_cubit.dart';
@@ -46,9 +50,11 @@ class _SettingsState extends State<Settings> {
                 width: 100,
                 child: TextField(
                   onSubmitted: (value) {
-                    tfStepsController.text = tfStepsController.text
-                        .replaceAll(RegExp("[^0-9]"), "");
-                         context.read<TuringCubit>().setMaxSteps( int.parse( tfStepsController.text));
+                    tfStepsController.text =
+                        tfStepsController.text.replaceAll(RegExp("[^0-9]"), "");
+                    context
+                        .read<TuringCubit>()
+                        .setMaxSteps(int.parse(tfStepsController.text));
                   },
                   expands: false,
                   controller: tfStepsController,
@@ -63,6 +69,44 @@ class _SettingsState extends State<Settings> {
               ),
             ],
           ),
+          Container(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            margin: const EdgeInsets.all(15),
+            height: 1,
+          ),
+          TextButton(
+              onPressed: () async {
+                FilePickerResult? outputFile = await FilePicker.platform.pickFiles(
+                    dialogTitle: 'Please select an input file:',
+                    type: FileType.custom,
+                    allowedExtensions: ['mco']);
+
+                if (outputFile == null) {
+                  return;
+                }
+                final str = File(outputFile.files.single.path!).readAsStringSync();
+                context.read<TableCubit>().fromJson(jsonDecode(str));
+              },
+              child: const Text("Прочитать таблицу с файла",
+                  style: TextStyle(color: Colors.black))),
+          TextButton(
+              onPressed: () async {
+                final String fileStr =
+                    jsonEncode(context.read<TableCubit>().toJson());
+                String? outputFile = await FilePicker.platform.saveFile(
+                    dialogTitle: 'Please select an output file:',
+                    type: FileType.custom,
+                    allowedExtensions: ['mco']);
+
+                if (outputFile == null) {
+                  return;
+                }
+                File(outputFile).writeAsString(fileStr);
+              },
+              child: const Text(
+                "Записать таблицу в файл",
+                style: TextStyle(color: Colors.black),
+              )),
           Container(
             color: const Color.fromARGB(255, 255, 255, 255),
             margin: const EdgeInsets.all(15),

@@ -6,14 +6,15 @@ import 'package:statrco/features/presentation/widgets/turing_list_view.dart';
 
 import '../cubit/turing_state.dart';
 
+// ignore: must_be_immutable
 class TopOfTheScreen extends StatelessWidget {
-  const TopOfTheScreen({
+   TopOfTheScreen({
     Key? key,
     required this.ctrlList,
   }) : super(key: key);
 
+    int lastIndex = 0;
   final ScrollController ctrlList;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TuringCubit, OneStep>(
@@ -23,12 +24,22 @@ class TopOfTheScreen extends StatelessWidget {
           if (index == 0) {
             index = 100;
           }
-          ctrlList.animateTo(
-              index * cellWidth - displayWidth(context) / 2 + cellWidth / 2,
-              curve: Curves.elasticInOut,
-              duration: Duration(
-                  milliseconds: (context.read<TuringCubit>().duration * (3 / 4))
-                      .toInt()));
+
+          double position =
+              index * cellWidth 
+              - displayWidth(context) / 2 + cellWidth / 2;
+
+          if ((lastIndex - index).abs() > 100) {
+            ctrlList.jumpTo(position);
+          } else {
+            ctrlList.animateTo(position,
+                curve: Curves.elasticInOut,
+                duration: Duration(
+                    milliseconds:
+                        (context.read<TuringCubit>().duration * (3 / 4))
+                            .toInt()));
+          }
+          lastIndex = index;
         }
 
         // oneMove *5- displayWidth(context)/2+oneMove/2;
@@ -66,12 +77,11 @@ class TopOfTheScreen extends StatelessWidget {
                         )),
                   ),
                   Positioned(
-                    top: 140,
-                    child: Text(state.currentState
-                    ,
-                    style: const TextStyle(fontSize: 25),
-                    
-                    ))
+                      top: 140,
+                      child: Text(
+                        state.currentState,
+                        style: const TextStyle(fontSize: 25),
+                      ))
                 ],
               ),
             ],

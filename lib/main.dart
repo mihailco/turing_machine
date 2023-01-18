@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/presentation/pages/turing_machine_page.dart';
 import 'features/presentation/cubit/table_cubit.dart';
 import 'features/presentation/cubit/turing_cubit.dart';
+import 'features/presentation/cubit/turing_history_cubit.dart';
 import 'injection.dart' as inj;
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(create: (_) => inj.locator<TuringHistoryCubit>()),
           BlocProvider(create: (_) => inj.locator<TableCubit>()),
           BlocProvider(create: (_) => inj.locator<TuringCubit>())
         ],

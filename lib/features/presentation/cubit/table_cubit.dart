@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:statrco/features/presentation/constants.dart';
 import 'package:statrco/features/presentation/cubit/table_state.dart';
@@ -5,16 +8,25 @@ import 'package:statrco/features/presentation/cubit/table_state.dart';
 import '../../domain/entities/table_model.dart';
 
 class TableCubit extends Cubit<TableState> {
-  final List<String> states;
-  final List<String> A;
-  final Map<Pair, CellCommand> table;
-  TableCubit(this.states, this.A, this.table)
-      : super(CurrentTableState.withLists(states, A, table));
+  final List<String> states = ["", "q0", "q1"];
+  final List<String> A = ["", nullElement];
+  late Map<Pair, CellCommand> table = {
+    const Pair("q1", nullElement): CellCommand(states[0], A[0], "")
+  };
+  TableCubit()
+      : super(CurrentTableState.withLists(
+            const ["", "q0", "q1"],
+            const ["", nullElement],
+            {const Pair("q1", nullElement): CellCommand("", "", "")}));
 
   void addState(String newState) {
     if (states.contains(newState)) {
-      newState =
-          newState.replaceAll(RegExp("[0-9]"), "") + states.length.toString();
+      int i = 0;
+      String words = newState.replaceAll(RegExp("[0-9]"), "");
+      while (states.contains(newState)) {
+        i++;
+        newState = "$words$i";
+      }
     }
 
     List<String> tmp = List.from(states);
@@ -29,7 +41,13 @@ class TableCubit extends Cubit<TableState> {
 
   void addA(String newA) {
     if (A.contains(newA)) {
-      newA = newA.replaceAll(RegExp("[0-9]"), "") + (A.length - 2).toString();
+      int i = 0;
+      String words = newA.replaceAll(RegExp("[0-9]"), "");
+      while (A.contains(newA)) {
+        i++;
+        newA = "$words$i";
+        newA = newA.substring(max(0, newA.length - 3));
+      }
     }
 
     List<String> tmp = List.from(A);
@@ -48,6 +66,46 @@ class TableCubit extends Cubit<TableState> {
     A.addAll(["", nullElement]);
     table.clear();
     table[const Pair("q1", nullElement)] = CellCommand(states[0], A[0], "");
+    emit(CurrentTableState.withLists(states, A, table));
+  }
+
+  Map<String, dynamic> toJson() => {
+        'states': states.toString(),
+        'A': A.toString(),
+        'table': table.toString(),
+      };
+
+  void fromJson(Map<String, dynamic> json) {
+    states.clear();
+    states.addAll(json["states"]!
+        .toString()
+        .replaceFirst("[", "")
+        .replaceFirst("]", "")
+        .split(", "));
+
+    A.clear();
+    A.addAll(json["A"]!
+        .toString()
+        .replaceFirst("[", "")
+        .replaceFirst("]", "")
+        .split(", "));
+
+    table.clear();
+    final t = json["table"]!
+        .toString()
+        .replaceAll("CellCommand", "")
+        .replaceAll(RegExp("[{}(),:]"), "")
+        .split("Pair")
+        .where((element) => element != "")
+        .toList();
+
+    final splitted = List.generate(t.length, (index) => t[index].split(" "));
+    splitted.forEach(
+      (el) {
+        table[Pair(el[0], el[1])] = CellCommand(el[2], el[3], el[4]);
+      },
+    );
+    // table.addAll();
     emit(CurrentTableState.withLists(states, A, table));
   }
 }

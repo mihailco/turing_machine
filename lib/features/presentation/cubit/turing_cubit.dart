@@ -2,32 +2,43 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:statrco/features/domain/entities/infinit_list_model.dart';
+import 'package:statrco/features/presentation/cubit/table_cubit.dart';
+import 'package:statrco/features/presentation/cubit/turing_history_cubit.dart';
+import 'package:statrco/features/presentation/cubit/turing_history_state.dart';
 import 'package:statrco/features/presentation/cubit/turing_state.dart';
 
 import '../../domain/entities/table_model.dart';
+import '../constants.dart';
 
 class TuringCubit extends Cubit<OneStep> {
-  TuringCubit(this.states, this.A, this.table, this.list)
-      : super(OneStep(states[2], list.lastNN, list, false, 0));
+  TuringCubit(this.table, this.turingHistory)
+      : super(OneStep(
+            table.states[2], 100, InfinitList([], nullElement), false, 0));
+
   ///задержка в милисекундах между шагами
   late Duration time;
-  final List<String> states;
-  final List<String> A;
-  final Map<Pair, CellCommand> table;
-  final InfinitList list;
+
+  final TuringHistoryCubit turingHistory;
+
+  final TableCubit table;
+
   int duration = 666;
   late int maxSteps = 1000;
   bool running = false;
 
-  late String curState = states[1];
+  final InfinitList list = InfinitList([], nullElement);
+
+  late String curState = table.states[1];
   late int curPos = 0;
 
   void setDuration(int milliseconds) {
     duration = milliseconds;
   }
 
-  ///выполняет поседовательность команд до тех пор, пока не сработают условия остановки
+  ///выполняет поседовательность команд до тех пор, пока не сработает
+  ///одно из условий остановки
   void run({bool emitAllSteps = true}) async {
+    turingHistory.add(StartAction());
     int step = 1;
     if (running) return;
     running = true;
@@ -44,10 +55,12 @@ class TuringCubit extends Cubit<OneStep> {
 
     while (true) {
       if (!running ||
-          table[Pair(curState, list[curPos])]!.isNull() ||
+          table.table[Pair(curState, list[curPos])]!.isNull() ||
           step >= maxSteps) {
         running = false;
         emit(OneStep(curState, curPos, list, running, step));
+        turingHistory.add(StopAction());
+
         return;
       }
 
@@ -59,6 +72,8 @@ class TuringCubit extends Cubit<OneStep> {
       if (curState == "q0") {
         running = false;
         emit(OneStep(curState, curPos, list, running, step));
+        turingHistory.add(StopAction());
+
         return;
       }
     }
@@ -69,21 +84,33 @@ class TuringCubit extends Cubit<OneStep> {
   }
 
   void setCurrrentPosition(int index) {
+    turingHistory.add(MoveAction("$index"));
+
     curPos = index;
     emit(OneStep(curState, curPos, list, running, 0));
   }
 
-  ///делает один шаг и отрпавяет новое состояние
+  ///делает один шаг и отправяет новое состояние
   void execute({int step = 0, bool emitThis = true}) {
-    var cmd = table[Pair(curState, list[curPos])]!;
-    if (cmd.rewrite != "") list[curPos] = cmd.rewrite;
-    if (cmd.nextState != "") curState = cmd.nextState;
+    var cmd = table.table[Pair(curState, list[curPos])]!;
+    if (cmd.rewrite != "") {
+      turingHistory.add(OverwriteAction(list[curPos], cmd.rewrite));
+
+      list[curPos] = cmd.rewrite;
+    }
+    if (cmd.nextState != "") {
+      turingHistory.add(ChangeStateAction(curState, cmd.nextState));
+
+      curState = cmd.nextState;
+    }
     if (cmd.moveTo != "") {
       if (cmd.moveTo == "L") {
         curPos--;
+        turingHistory.add(MoveAction("L"));
       }
       if (cmd.moveTo == "R") {
         curPos++;
+        turingHistory.add(MoveAction("R"));
       }
     }
     if (!emitThis) return;
