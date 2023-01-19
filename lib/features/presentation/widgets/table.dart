@@ -29,10 +29,16 @@ class _TuringsTableState extends State<TuringsTable> {
                 // horizontalMargin: 0,
                 border: const TableBorder(
                     verticalInside:
-                        BorderSide(color: Color.fromRGBO(73, 50, 37, 0.102))),
+                        BorderSide(
+                          width: 0.5,
+                          color: Color.fromARGB(79, 255, 255, 255))),
                 columns: state.states.where((element) =>  element!="q0")
                     .map<DataColumn>((e) => DataColumn(
-                        label: Expanded(child: Center(child: Text(e)))))
+                        label: Expanded(child: GestureDetector(
+                          onDoubleTap: () {
+                            context.read<TableCubit>().deleteState(e);
+                          },
+                          child: Center(child: Text(e))))))
                     .toList(),
 
                 rows: state.A
@@ -41,7 +47,11 @@ class _TuringsTableState extends State<TuringsTable> {
                         cells: state.states.where((element) =>  element!="q0")
                             .map<DataCell>((st) => DataCell(
                                   st == ""
-                                      ? Text(a)
+                                      ? GestureDetector(
+                                        onDoubleTap: () {
+                                          context.read<TableCubit>().deleteA(a);
+                                        },
+                                        child: Text(a))
                                       : Container(
                                           color: (stateTU.currentState == st&&stateTU.list[stateTU.indexInList]==a)
                                               ? const Color.fromARGB(24, 255, 255, 255)

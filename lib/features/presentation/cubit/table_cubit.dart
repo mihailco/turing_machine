@@ -20,7 +20,7 @@ class TableCubit extends Cubit<TableState> {
             const ["", nullElement],
             {const Pair("q1", nullElement): CellCommand("", "", "")}));
 
-//adds a state to the table 
+//adds a state to the table
   void addState(String newState) {
     if (states.contains(newState)) {
       int i = 0;
@@ -36,12 +36,29 @@ class TableCubit extends Cubit<TableState> {
     for (var element in A) {
       table[Pair(newState, element)] = CellCommand.nil();
     }
+
     /// emit(NullTableState());
     emit(CurrentTableState.withLists(tmp, A, table));
     states.add(newState);
   }
 
-///adds a unique character to the external alphabet
+  void deleteState(String state) {
+    if (states.length <= 1) return;
+    List<String> tmp = List.from(states);
+    tmp.remove(state);
+    table.removeWhere((key, value) => key.state == state);
+    table.forEach(
+      (key, value) {
+        if (value.nextState == state) {
+          table[key]!.nextState = "";
+        }
+      },
+    );
+    emit(CurrentTableState.withLists(tmp, A, table));
+    states.remove(state);
+  }
+
+  ///adds a unique character to the external alphabet
   void addA(String newA) {
     if (A.contains(newA)) {
       int i = 0;
@@ -60,6 +77,22 @@ class TableCubit extends Cubit<TableState> {
     }
     emit(CurrentTableState.withLists(states, tmp, table));
     A.add(newA);
+  }
+
+  void deleteA(String a) {
+    if (A.length <= 1 || a == nullElement) return;
+    List<String> tmp = List.from(A);
+    tmp.remove(a);
+    table.removeWhere((key, value) => key.A == a);
+    table.forEach(
+      (key, value) {
+        if (value.rewrite == a) {
+          table[key]!.rewrite = "";
+        }
+      },
+    );
+    emit(CurrentTableState.withLists(states, tmp, table));
+    A.remove(a);
   }
 
   void clear() {
