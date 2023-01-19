@@ -17,7 +17,7 @@ class BackgroundGears2 extends StatelessWidget {
             child: Gear(
               speed: 5,
               scale: 1 / 3,
-              darker:0.5,
+              darker:0.8,
               initialtTurn: 1.5,
               typeGear: const BigGear(),
               clockwise: false,
@@ -31,7 +31,7 @@ class BackgroundGears2 extends StatelessWidget {
               darker:0.5,
               initialtTurn: 1.516,
               typeGear: const BigGear(),
-              clockwise: false,
+              clockwise: true,
             )),
         Positioned(
           right: 0,
