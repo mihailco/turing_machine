@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:statrco/features/presentation/widgets/about.dart';
 import 'package:statrco/features/presentation/widgets/settings.dart';
 
 import '../../domain/entities/infinit_list_model.dart';
@@ -50,7 +51,7 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
                           onPressed: () {
                             context.read<TuringCubit>().stop();
                           },
-                          icon: const Icon(Icons.pause)),
+                          icon: const Icon(Icons.stop)),
                     Text(state.stepNumber.toString())
                   ],
                 );
@@ -65,10 +66,20 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(15))),
                       context: context,
-                      builder: ((context) => TuringHistoryW()));
+                      builder: ((context) => const About()));
+                },
+                icon: const Icon(Icons.question_mark_rounded)),
+            IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(15))),
+                      context: context,
+                      builder: ((context) => const TuringHistoryW()));
                 },
                 icon: const Icon(Icons.history)),
-
             IconButton(
                 onPressed: () {
                   showModalBottomSheet(
@@ -82,27 +93,23 @@ class _TuringMachinePageState extends State<TuringMachinePage> {
           ],
         ),
       ),
-      body: Container(
-        // decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/photos/background_top.png")) ),
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Flexible(
-                  flex: 3,
-                  child: Stack(
-                    children: [
-                      const BackgroundGears(),
-                      TopOfTheScreen(ctrlList: ctrlList),
-                    ],
-                  ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Flexible(
+                flex: 3,
+                child: Stack(
+                  children: [
+                    const BackgroundGears(),
+                    TopOfTheScreen(ctrlList: ctrlList),
+                  ],
                 ),
-                Container(
-                    child: Flexible(flex: 2, child: BottomPartOfScreen())),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Flexible(flex: 2, child: BottomPartOfScreen()),
+            ],
+          ),
+        ],
       ),
     );
   }

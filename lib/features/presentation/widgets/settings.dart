@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/presentation/cubit/table_cubit.dart';
-import 'dart:io' as Platform;
 import '../cubit/turing_cubit.dart';
 
 class Settings extends StatefulWidget {
@@ -74,11 +73,12 @@ class _SettingsState extends State<Settings> {
           else
             Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: Theme.of(context).primaryColor,
                   margin: const EdgeInsets.all(15),
-                  height: 1,
+                  height: 2,
                 ),
                 TextButton(
                     onPressed: () async {
@@ -93,6 +93,7 @@ class _SettingsState extends State<Settings> {
                       }
                       final str = File(outputFile.files.single.path!)
                           .readAsStringSync();
+                      // ignore: use_build_context_synchronously
                       context.read<TableCubit>().fromJson(jsonDecode(str));
                     },
                     child: const Text("Прочитать таблицу с файла",
@@ -109,7 +110,7 @@ class _SettingsState extends State<Settings> {
                       if (outputFile == null) {
                         return;
                       }
-                      File(outputFile).writeAsString(fileStr);
+                      File("${outputFile.replaceAll(".mco", "")}.mco").writeAsString(fileStr);
                     },
                     child: const Text(
                       "Записать таблицу в файл",
@@ -118,9 +119,9 @@ class _SettingsState extends State<Settings> {
               ],
             ),
           Container(
-            color: const Color.fromARGB(255, 255, 255, 255),
+            color: Theme.of(context).primaryColor,
             margin: const EdgeInsets.all(15),
-            height: 1,
+            height: 2,
           ),
           TextButton(
               onPressed: () {
@@ -139,6 +140,9 @@ class _SettingsState extends State<Settings> {
                 "Очистить всё",
                 style: TextStyle(color: Colors.red),
               )),
+          const SizedBox(
+            height: 35,
+          )
         ],
       ),
     );

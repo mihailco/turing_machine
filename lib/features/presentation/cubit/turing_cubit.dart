@@ -13,7 +13,9 @@ import '../constants.dart';
 class TuringCubit extends Cubit<OneStep> {
   TuringCubit(this.table, this.turingHistory)
       : super(OneStep(
-            table.states[2], 100, InfinitList([], nullElement), false, 0));
+            table.states[2], 100, InfinitList([], nullElement), false, 0)) {
+    emit(OneStep(curState, curPos, list, running, 0));
+  }
 
   ///delay in milliseconds between steps
   late Duration time;
@@ -115,7 +117,8 @@ class TuringCubit extends Cubit<OneStep> {
     if (!emitThis) return;
     emit(OneStep(curState, curPos, list, running, step));
   }
-///puts the maximum number of steps to a stop
+
+  ///puts the maximum number of steps to a stop
   void setMaxSteps(int n) {
     maxSteps = n;
   }

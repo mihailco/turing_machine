@@ -6,7 +6,8 @@ class OneStep {
   final String currentState;
   final InfinitList list;
   final bool running;
-  const OneStep(this.currentState, this.indexInList, this.list, this.running, this.stepNumber);
+  const OneStep(this.currentState, this.indexInList, this.list, this.running,
+      this.stepNumber);
 
   List<Object?> get props =>
       [indexInList, currentState, list.list.toString(), running];

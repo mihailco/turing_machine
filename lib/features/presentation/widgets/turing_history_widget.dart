@@ -100,9 +100,8 @@ class TuringHistoryW extends StatelessWidget {
 
                             return const SizedBox();
                           },
-                          separatorBuilder:
-                              (BuildContext context, int index) =>
-                                  const Divider(),
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(),
                           itemCount: state.list.length),
                     ),
                   ],

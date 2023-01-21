@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
@@ -14,11 +13,9 @@ class TableCubit extends Cubit<TableState> {
   late Map<Pair, CellCommand> table = {
     const Pair("q1", nullElement): CellCommand(states[0], A[0], "")
   };
-  TableCubit()
-      : super(CurrentTableState.withLists(
-            const ["", "q0", "q1"],
-            const ["", nullElement],
-            {const Pair("q1", nullElement): CellCommand("", "", "")}));
+  TableCubit() : super(NullTableState()) {
+    emit(CurrentTableState.withLists(states, A, table));
+  }
 
 //adds a state to the table
   void addState(String newState) {
@@ -136,11 +133,9 @@ class TableCubit extends Cubit<TableState> {
         .toList();
 
     final splitted = List.generate(t.length, (index) => t[index].split(" "));
-    splitted.forEach(
-      (el) {
-        table[Pair(el[0], el[1])] = CellCommand(el[2], el[3], el[4]);
-      },
-    );
+    for (var el in splitted) {
+      table[Pair(el[0], el[1])] = CellCommand(el[2], el[3], el[4]);
+    }
     // table.addAll();
     emit(CurrentTableState.withLists(states, A, table));
   }

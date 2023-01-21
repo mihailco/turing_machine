@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:statrco/features/presentation/cubit/turing_cubit.dart';
@@ -35,6 +33,7 @@ class BigGear extends TypeGear {
   String getAsset() => "assets/photos/gearB.png";
 }
 
+// ignore: must_be_immutable
 class Gear extends StatelessWidget {
   Gear(
       {super.key,
@@ -61,14 +60,13 @@ class Gear extends StatelessWidget {
             curve: Curves.elasticInOut,
             duration: Duration(
                 milliseconds: context.read<TuringCubit>().duration * 3 ~/ 4),
-                //indicates the number of turns and direction 
+            //indicates the number of turns and direction
             turns: state.indexInList.toDouble() *
                     (clockwise ? -1 : 1) *
                     (connectedWith.getSize() / typeGear.getSize()) /
                     18 *
                     speed +
                 initialtTurn,
-
             child: ColorFiltered(
               colorFilter: ColorFilter.mode(
                 Color.fromARGB(255, (255 * darker).toInt(),

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.statrco">
    <application
-        android:label="statrco"
+        android:label="Steampunk Turing"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

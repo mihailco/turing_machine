@@ -34,7 +34,7 @@ class BackgroundGears extends StatelessWidget {
               clockwise: true,
             )),
         Positioned(
-          left: 89,
+            left: 89,
             bottom: 0,
             child: Gear(
               speed: 10,

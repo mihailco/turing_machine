@@ -8,12 +8,12 @@ import '../cubit/turing_state.dart';
 
 // ignore: must_be_immutable
 class TopOfTheScreen extends StatelessWidget {
-   TopOfTheScreen({
+  TopOfTheScreen({
     Key? key,
     required this.ctrlList,
   }) : super(key: key);
 
-    int lastIndex = 0;
+  int lastIndex = 0;
   final ScrollController ctrlList;
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,7 @@ class TopOfTheScreen extends StatelessWidget {
           }
 
           double position =
-              index * cellWidth 
-              - displayWidth(context) / 2 + cellWidth / 2;
+              index * cellWidth - displayWidth(context) / 2 + cellWidth / 2;
 
           if ((lastIndex - index).abs() > 100) {
             ctrlList.jumpTo(position);
@@ -44,7 +43,7 @@ class TopOfTheScreen extends StatelessWidget {
 
         // oneMove *5- displayWidth(context)/2+oneMove/2;
         return Container(
-          padding: EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 15),
           child: Stack(
             // alignment: AlignmentDirectional.center,
             children: [

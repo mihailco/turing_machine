@@ -20,7 +20,7 @@ class TuringListView extends StatelessWidget {
       child: ScrollConfiguration(
         behavior: MyCustomScrollBehavior(),
         child: ListView.builder(
-          
+
             // reverse: true,
             controller: controller,
             scrollDirection: Axis.horizontal,

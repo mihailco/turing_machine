@@ -6,10 +6,10 @@ import 'package:statrco/features/presentation/widgets/table.dart';
 import '../cubit/table_cubit.dart';
 
 class BottomPartOfScreen extends StatelessWidget {
-   BottomPartOfScreen({
+  BottomPartOfScreen({
     Key? key,
   }) : super(key: key);
-final TextEditingController controller =TextEditingController(text: "0");
+  final TextEditingController controller = TextEditingController(text: "0");
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,9 @@ final TextEditingController controller =TextEditingController(text: "0");
         children: [
           const BackgroundGears2(),
           InteractiveViewer(
-            
             maxScale: 2,
             minScale: 0.0000001,
             constrained: false,
-
             boundaryMargin: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +38,12 @@ final TextEditingController controller =TextEditingController(text: "0");
                         padding: const EdgeInsets.all(7),
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 3, color: const Color.fromRGBO(82, 59, 43, 1)),
+                              width: 3,
+                              color: const Color.fromRGBO(82, 59, 43, 1)),
                           borderRadius: BorderRadius.circular(12),
                           color: const Color.fromARGB(255, 185, 151, 103),
                         ),
-                        child:  const TuringsTable()),
+                        child: const TuringsTable()),
                     IconButton(
                         onPressed: () {
                           // context.read<TableCubit>().addState("кью1");
@@ -53,22 +52,22 @@ final TextEditingController controller =TextEditingController(text: "0");
                         icon: const Icon(Icons.plus_one_outlined)),
                   ],
                 ),
-          
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(width: 22,),
+                    const SizedBox(
+                      width: 22,
+                    ),
                     SizedBox(
-
-                      width: 45,
-                          child: TextField(
-                            maxLength: 2,
-                            controller: controller,
+                        width: 45,
+                        child: TextField(
+                          maxLength: 2,
+                          controller: controller,
                           onEditingComplete: () {
-                             context.read<TableCubit>().addA(controller.text);
+                            context.read<TableCubit>().addA(controller.text);
                           },
-                          )),
-                        IconButton(
+                        )),
+                    IconButton(
                         onPressed: () {
                           context.read<TableCubit>().addA(controller.text);
                         },

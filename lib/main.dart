@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
                   onPrimary: Color.fromARGB(221, 0, 0, 0),
                   primary: Color.fromARGB(221, 241, 165, 0),
                   brightness: Brightness.dark),
-              primaryColor: const Color.fromRGBO(150, 123, 85, 1),
+              primaryColor: const Color.fromARGB(221, 241, 165, 0),
               canvasColor: const Color.fromARGB(255, 255, 205, 129),
 
               //Theme.of(context).textTheme.headline6,
@@ -51,13 +51,7 @@ class MyApp extends StatelessWidget {
               textSelectionTheme: const TextSelectionThemeData(
                   cursorColor: Color.fromARGB(255, 0, 0, 0)),
               scaffoldBackgroundColor: const Color.fromARGB(255, 201, 169, 121),
-              elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return const Color.fromARGB(255, 0, 153, 145);
-                }
-                return const Color.fromARGB(162, 0, 138, 131);
-              })))),
+             ),
           home: const TuringMachinePage(),
           initialRoute: '/',
           // routes: {
